@@ -5,6 +5,9 @@ import Adam from '../media/Adam_Miller.jpg';
 import Mitchel from '../media/Mitchel_Givens.jpg';
 import Stephan from '../media/Stephen_Hadley.jpg';
 
+
+let rerender = (store: StorePropsType) => {
+}
 export const store: StorePropsType = {
     _state: {
         profilePage: {
@@ -57,5 +60,16 @@ export const store: StorePropsType = {
                 {id: v1(), friendName: 'Steven Franklin', message: 'Hello, how are you?', time: '11:13'},
             ]
         }
-    },
+    }
 }
+
+export const addPost = (postMessage: string) => {
+    store._state.profilePage.myPostsData.push({id: v1(), postMessage: postMessage, like: 33})
+    rerender(store)
+}
+
+export const subscribe = (observer: (store: StorePropsType) => void) => {
+  rerender = observer
+}
+// @ts-ignore
+window.store = store

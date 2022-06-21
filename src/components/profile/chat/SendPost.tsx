@@ -8,6 +8,7 @@ import SentimentSatisfiedOutlinedIcon from "@mui/icons-material/SentimentSatisfi
 import React, {ChangeEvent, useState} from 'react';
 
 type SendPostPropsType = {
+    addPost: (postMessage: string) => void
 }
 export const SendPost = (props: SendPostPropsType) => {
     const [newPost, setNewPost] = useState('')
@@ -16,7 +17,8 @@ export const SendPost = (props: SendPostPropsType) => {
         setNewPost(e.currentTarget.value)
     }
     const onClickSendPostHandler = () => {
-        console.log('Add post')
+        props.addPost(newPost)
+        setNewPost('')
     }
     return (
         <Paper sx={{mb: 1, p: 1}}>

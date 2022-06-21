@@ -13,13 +13,17 @@ export const PATH = {
 type PagesType = {
     myPostsData: Array<MyPostType>
     messagePage: MessagePageType
+    addPost: (postMessage: string) => void
 }
 function Pages(props: PagesType) {
     return (
             <Routes>
                 <Route path={'/'} element={<Navigate to={PATH.PROFILE}/>}/>
 
-                <Route path={PATH.PROFILE} element={<Profile myPostsData={props.myPostsData}/>}/>
+                <Route path={PATH.PROFILE} element={<Profile
+                    myPostsData={props.myPostsData}
+                    addPost={props.addPost}
+                />}/>
                 <Route path={PATH.MESSAGES} element={<Message friendsData={props.messagePage.friendsData}
                                                               friendMessageData={props.messagePage.friendMessageData}
                                                               myMessageData={props.messagePage.myMessageData}/>}/>

@@ -7,13 +7,14 @@ import {MyPostType} from '../../../types';
 
 type ChatPropsType = {
     myPostsData: Array<MyPostType>
+    addPost: (postMessage: string) => void
 }
 
 export const Chat = (props: ChatPropsType) => {
 
     return (
         <Grid item xs={8}>
-            <SendPost/>
+            <SendPost addPost={props.addPost}/>
             {props.myPostsData.map(post => <MyPost key={v1()} post={post}/>)}
         </Grid>
     );

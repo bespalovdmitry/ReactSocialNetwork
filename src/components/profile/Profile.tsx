@@ -8,6 +8,7 @@ import {Chat} from './chat/Chat';
 
 type ProfilePropsType = {
     myPostsData: Array<MyPostType>
+    addPost: (postMessage: string) => void
 }
 
 export const Profile = (props: ProfilePropsType) => {
@@ -17,6 +18,7 @@ export const Profile = (props: ProfilePropsType) => {
             <Grid container spacing={2} sx={{backgroundColor: 'none'}}>
                 <ProfileCard/>
                 <Chat
+                    addPost={props.addPost}
                     myPostsData={props.myPostsData}
                 />
             </Grid>
