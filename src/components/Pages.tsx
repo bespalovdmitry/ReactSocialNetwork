@@ -1,9 +1,9 @@
 import React from 'react'
-import {Route, Routes, Navigate} from 'react-router-dom';
+import {Navigate, Route, Routes} from 'react-router-dom';
 import Error404 from './error/Error404';
 import {Profile} from './profile/Profile';
 import {Message} from './message/Message';
-import {MessagePageType, MyPostType} from '../types';
+import {MessagePageType, ProfilePageType, RootActionType} from '../types';
 
 export const PATH = {
     PROFILE: '/profile',
@@ -11,9 +11,9 @@ export const PATH = {
 }
 
 type PagesType = {
-    myPostsData: Array<MyPostType>
+    profilePage: ProfilePageType
     messagePage: MessagePageType
-    addPost: (postMessage: string) => void
+    dispatch: (action: RootActionType) => void
 }
 function Pages(props: PagesType) {
     return (
@@ -21,12 +21,14 @@ function Pages(props: PagesType) {
                 <Route path={'/'} element={<Navigate to={PATH.PROFILE}/>}/>
 
                 <Route path={PATH.PROFILE} element={<Profile
-                    myPostsData={props.myPostsData}
-                    addPost={props.addPost}
+                    profilePage={props.profilePage}
+                    dispatch={props.dispatch}
                 />}/>
                 <Route path={PATH.MESSAGES} element={<Message friendsData={props.messagePage.friendsData}
                                                               friendMessageData={props.messagePage.friendMessageData}
-                                                              myMessageData={props.messagePage.myMessageData}/>}/>
+                                                              myMessageData={props.messagePage.myMessageData}
+                                                              dispatch={props.dispatch}
+                />}/>
 
 
                 <Route path={'/*'} element={<Error404/>}/>

@@ -5,11 +5,12 @@ import {MessageFromFriend} from './MessageFromFriend';
 import {ChatSendMessage} from './ChatSendMessage';
 import React from 'react';
 import {MyMessage} from './MyMessage';
-import {MessageType} from '../../../types';
+import {MessageType, RootActionType} from '../../../types';
 
 type ChatAreaPropsType = {
     friendMessageData: Array<MessageType>
     myMessageData: Array<MessageType>
+    dispatch: (action: RootActionType) => void
 }
 export const ChatArea = (props: ChatAreaPropsType) => {
     return (
@@ -29,7 +30,7 @@ export const ChatArea = (props: ChatAreaPropsType) => {
                                                   message={message.message} time={message.time}/>
                     })}
                 </Box>
-                <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
+                <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
                     {props.myMessageData.map((message) => {
                         return <MyMessage friendName={message.friendName} message={message.message}
                                           time={message.time}/>
@@ -39,7 +40,7 @@ export const ChatArea = (props: ChatAreaPropsType) => {
             </Box>
             <Box>
                 <Divider sx={{mb: 2}}/>
-                <ChatSendMessage/>
+                <ChatSendMessage dispatch={props.dispatch}/>
             </Box>
         </Paper>
     );

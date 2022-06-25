@@ -1,14 +1,14 @@
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import React from "react";
-import {Grid} from "@mui/material";
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import React from 'react';
+import {Grid} from '@mui/material';
 import {ProfileCard} from './ProfileCard';
-import {MyPostType} from '../../types';
+import {ProfilePageType, RootActionType} from '../../types';
 import {Chat} from './chat/Chat';
 
 type ProfilePropsType = {
-    myPostsData: Array<MyPostType>
-    addPost: (postMessage: string) => void
+    profilePage: ProfilePageType
+    dispatch: (action: RootActionType) => void
 }
 
 export const Profile = (props: ProfilePropsType) => {
@@ -18,8 +18,8 @@ export const Profile = (props: ProfilePropsType) => {
             <Grid container spacing={2} sx={{backgroundColor: 'none'}}>
                 <ProfileCard/>
                 <Chat
-                    addPost={props.addPost}
-                    myPostsData={props.myPostsData}
+                    dispatch={props.dispatch}
+                    profilePage={props.profilePage}
                 />
             </Grid>
         </Box>

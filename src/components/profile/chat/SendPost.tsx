@@ -6,9 +6,11 @@ import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternate
 import AddLocationAltOutlinedIcon from "@mui/icons-material/AddLocationAltOutlined";
 import SentimentSatisfiedOutlinedIcon from "@mui/icons-material/SentimentSatisfiedOutlined";
 import React, {ChangeEvent, useState} from 'react';
+import {RootActionType} from '../../../types';
+import {addPostAC} from '../../../redux/state';
 
 type SendPostPropsType = {
-    addPost: (postMessage: string) => void
+    dispatch: (action: RootActionType) => void
 }
 export const SendPost = (props: SendPostPropsType) => {
     const [newPost, setNewPost] = useState('')
@@ -17,7 +19,7 @@ export const SendPost = (props: SendPostPropsType) => {
         setNewPost(e.currentTarget.value)
     }
     const onClickSendPostHandler = () => {
-        props.addPost(newPost)
+        props.dispatch(addPostAC(newPost))
         setNewPost('')
     }
     return (

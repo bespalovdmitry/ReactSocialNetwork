@@ -7,12 +7,13 @@ import {SearchField} from "./chatSideBar/SearchField";
 import {ChatGroupBtn} from "./chatSideBar/ChatGroupBtn";
 import {FriendsListChat} from "./chatSideBar/FriendsListChat";
 import {ChatArea} from "./chatArea/ChatArea";
-import {FriendType, MessageType} from '../../types';
+import {FriendType, MessageType, RootActionType} from '../../types';
 
 type MessagePropsType = {
     friendsData: Array<FriendType>
     friendMessageData: Array<MessageType>
     myMessageData: Array<MessageType>
+    dispatch: (action: RootActionType) => void
 }
 
 export const Message = (props: MessagePropsType) => {
@@ -30,6 +31,7 @@ export const Message = (props: MessagePropsType) => {
                     <ChatArea
                         friendMessageData={props.friendMessageData}
                         myMessageData={props.myMessageData}
+                        dispatch={props.dispatch}
                     />
                 </Grid>
             </Grid>

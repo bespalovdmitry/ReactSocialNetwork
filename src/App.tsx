@@ -9,7 +9,6 @@ import Pages from './components/Pages';
 
 type AppPropsType = {
     store: StorePropsType
-    addPost: (postMessage: string) => void
 }
 function App(props: AppPropsType) {
 
@@ -20,9 +19,9 @@ function App(props: AppPropsType) {
             <Header/>
             <SideBar/>
                 <Pages
-                    myPostsData={props.store._state.profilePage.myPostsData}
-                    messagePage={props.store._state.messagePage}
-                    addPost={props.addPost}
+                    profilePage={props.store.getState().profilePage}
+                    messagePage={props.store.getState().messagePage}
+                    dispatch={props.store.dispatch.bind(props.store)}
                 />
         </Box>
     );

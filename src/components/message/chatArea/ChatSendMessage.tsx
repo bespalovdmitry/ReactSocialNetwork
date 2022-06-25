@@ -1,14 +1,20 @@
 import {IconButton, InputBase, Paper} from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import React, {ChangeEvent, useState} from 'react';
+import {RootActionType} from '../../../types';
+import {addMessageAC} from '../../../redux/state';
 
-export const ChatSendMessage = () => {
+type ChatSendMessageType = {
+    dispatch: (action: RootActionType) => void
+}
+export const ChatSendMessage = (props: ChatSendMessageType) => {
     const [myMessage, setMyMessage] = useState('')
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       setMyMessage(event.currentTarget.value)
     }
     const onClickHandler = () => {
-        console.log('ok')
+        props.dispatch(addMessageAC(myMessage))
+        setMyMessage('')
     }
     return (
         <Paper component="form" sx={{

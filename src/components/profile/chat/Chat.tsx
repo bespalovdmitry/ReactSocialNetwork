@@ -3,19 +3,21 @@ import React from 'react';
 import {SendPost} from './SendPost';
 import {MyPost} from './MyPost';
 import {v1} from 'uuid';
-import {MyPostType} from '../../../types';
+import {ProfilePageType, RootActionType} from '../../../types';
 
 type ChatPropsType = {
-    myPostsData: Array<MyPostType>
-    addPost: (postMessage: string) => void
+    profilePage: ProfilePageType
+    dispatch: (action: RootActionType) => void
 }
 
 export const Chat = (props: ChatPropsType) => {
 
     return (
         <Grid item xs={8}>
-            <SendPost addPost={props.addPost}/>
-            {props.myPostsData.map(post => <MyPost key={v1()} post={post}/>)}
+            <SendPost
+                dispatch={props.dispatch}
+            />
+            {props.profilePage.myPostsData.map(post => <MyPost key={v1()} post={post}/>)}
         </Grid>
     );
 };

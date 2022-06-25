@@ -1,6 +1,13 @@
+import {addMessageAC, addPostAC} from './redux/state';
+
 export type StorePropsType = {
     _state: RootType
+    getState: () => RootType
+    _callSubscriber: (store: RootType) => void
+    subscribe: (callback: () => void) => void
+    dispatch: (action: RootActionType) => void
 }
+export type RootActionType = ReturnType<typeof addPostAC> | ReturnType<typeof addMessageAC>
 export type RootType = {
     profilePage: ProfilePageType
     messagePage: MessagePageType
@@ -14,5 +21,6 @@ export type MessageType = { id: string, friendName: string, message: string, tim
 export type FriendType = { id: string, friendName: string, lastMessage: string, lastMessageTime: string, avatar: string, statusColor: string }
 export type ProfilePageType = {
     myPostsData: Array<MyPostType>
+    newPostText: string
 }
 export type MyPostType = { id: string, postMessage: string, like: number }
