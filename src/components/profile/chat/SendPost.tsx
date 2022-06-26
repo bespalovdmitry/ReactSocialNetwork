@@ -7,7 +7,7 @@ import AddLocationAltOutlinedIcon from "@mui/icons-material/AddLocationAltOutlin
 import SentimentSatisfiedOutlinedIcon from "@mui/icons-material/SentimentSatisfiedOutlined";
 import React, {ChangeEvent, useState} from 'react';
 import {RootActionType} from '../../../types';
-import {addPostAC} from '../../../redux/state';
+import {addPostAC} from '../../../redux/profileReducer';
 
 type SendPostPropsType = {
     dispatch: (action: RootActionType) => void

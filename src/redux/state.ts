@@ -1,9 +1,11 @@
-import {RootType, StorePropsType} from '../types';
+import {RootActionType, RootType, StorePropsType} from '../types';
 import {v1} from 'uuid';
 import Steven from '../media/Steven_Franklin.jpg';
 import Adam from '../media/Adam_Miller.jpg';
 import Mitchel from '../media/Mitchel_Givens.jpg';
 import Stephan from '../media/Stephen_Hadley.jpg';
+import {profileReducer} from './profileReducer';
+import {messageReducer} from './messageReducer';
 
 export const store: StorePropsType = {
     _state: {
@@ -12,7 +14,6 @@ export const store: StorePropsType = {
                 {id: v1(), postMessage: 'Hello my friends!', like: 45},
                 {id: v1(), postMessage: 'This is my first post', like: 32},
             ],
-            newPostText: ''
         },
         messagePage: {
             friendsData: [
@@ -62,29 +63,12 @@ export const store: StorePropsType = {
     getState() {return this._state},
     _callSubscriber(state: RootType) {},
     subscribe(observer){this._callSubscriber = observer},
-    dispatch(action){
-        if (action.type === 'ADD-POST') {
-            this._state.profilePage.myPostsData.push({id: v1(), postMessage: action.postMessage, like: 0})
-            this._callSubscriber(this._state)
-        } else if (action.type === 'ADD-MESSAGE') {
-            this._state.messagePage.myMessageData.push({id: v1(), friendName: 'Steven Franklin', message: action.newMessage, time: `${new Date().getHours()}:${new Date().getMinutes()}`})
-            this._callSubscriber(this._state)
-        }
+    dispatch(action: RootActionType){
+        profileReducer(this._state.profilePage, action)
+        messageReducer(this._state.messagePage, action)
+        this._callSubscriber(this._state)
     }
 }
 
-export const addPostAC = (postMessage: string) => {
-  return {
-      type: 'ADD-POST',
-      postMessage: postMessage
-  } as const
-}
-
-export const addMessageAC = (newMessage: string) => {
-    return {
-        type: 'ADD-MESSAGE',
-        newMessage: newMessage
-    } as const
-}
 // @ts-ignore
 window.store = store

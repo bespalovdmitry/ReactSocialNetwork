@@ -1,4 +1,6 @@
-import {addMessageAC, addPostAC} from './redux/state';
+import {addLikeAC, addPostAC} from './redux/profileReducer';
+import {addMessageAC} from './redux/messageReducer';
+
 
 export type StorePropsType = {
     _state: RootType
@@ -7,7 +9,7 @@ export type StorePropsType = {
     subscribe: (callback: () => void) => void
     dispatch: (action: RootActionType) => void
 }
-export type RootActionType = ReturnType<typeof addPostAC> | ReturnType<typeof addMessageAC>
+export type RootActionType = AddPostACType | AddMessageACType | AddLikeACType
 export type RootType = {
     profilePage: ProfilePageType
     messagePage: MessagePageType
@@ -21,6 +23,8 @@ export type MessageType = { id: string, friendName: string, message: string, tim
 export type FriendType = { id: string, friendName: string, lastMessage: string, lastMessageTime: string, avatar: string, statusColor: string }
 export type ProfilePageType = {
     myPostsData: Array<MyPostType>
-    newPostText: string
 }
 export type MyPostType = { id: string, postMessage: string, like: number }
+export type AddPostACType = ReturnType<typeof addPostAC>
+export type AddMessageACType = ReturnType<typeof addMessageAC>
+export type AddLikeACType = ReturnType<typeof addLikeAC>

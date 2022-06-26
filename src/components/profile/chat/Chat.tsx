@@ -2,7 +2,6 @@ import {Grid} from '@mui/material';
 import React from 'react';
 import {SendPost} from './SendPost';
 import {MyPost} from './MyPost';
-import {v1} from 'uuid';
 import {ProfilePageType, RootActionType} from '../../../types';
 
 type ChatPropsType = {
@@ -17,7 +16,7 @@ export const Chat = (props: ChatPropsType) => {
             <SendPost
                 dispatch={props.dispatch}
             />
-            {props.profilePage.myPostsData.map(post => <MyPost key={v1()} post={post}/>)}
+            {props.profilePage.myPostsData.map(post => <MyPost key={post.id} post={post} postId={post.id} dispatch={props.dispatch}/>)}
         </Grid>
     );
 };

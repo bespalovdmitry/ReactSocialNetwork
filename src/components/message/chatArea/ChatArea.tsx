@@ -32,7 +32,7 @@ export const ChatArea = (props: ChatAreaPropsType) => {
                 </Box>
                 <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
                     {props.myMessageData.map((message) => {
-                        return <MyMessage friendName={message.friendName} message={message.message}
+                        return <MyMessage key={message.id} friendName={message.friendName} message={message.message}
                                           time={message.time}/>
                     })}
                 </Box>
