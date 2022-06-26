@@ -3,12 +3,11 @@ import Toolbar from '@mui/material/Toolbar';
 import React from 'react';
 import {Grid} from '@mui/material';
 import {ProfileCard} from './ProfileCard';
-import {ProfilePageType, RootActionType} from '../../types';
+import {StorePropsType} from '../../types';
 import {Chat} from './chat/Chat';
 
 type ProfilePropsType = {
-    profilePage: ProfilePageType
-    dispatch: (action: RootActionType) => void
+    store: StorePropsType
 }
 
 export const Profile = (props: ProfilePropsType) => {
@@ -18,8 +17,7 @@ export const Profile = (props: ProfilePropsType) => {
             <Grid container spacing={2} sx={{backgroundColor: 'none'}}>
                 <ProfileCard/>
                 <Chat
-                    dispatch={props.dispatch}
-                    profilePage={props.profilePage}
+                    store={props.store}
                 />
             </Grid>
         </Box>

@@ -1,15 +1,16 @@
 import React from 'react';
 import './index.css';
-import {store} from './redux/state';
 import ReactDOM from 'react-dom/client';
 import {HashRouter} from 'react-router-dom';
 import App from './App';
+import {RootType} from './types';
+import store from './redux/storeRedux';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 
-const rerender = () => {
+const rerender = (state: RootType) => {
     root.render(
         <HashRouter>
             <App
@@ -19,8 +20,12 @@ const rerender = () => {
     );
 }
 
-rerender()
-store.subscribe(rerender)
+rerender(store.getState())
+
+store.subscribe(() => {
+    let state = store.getState()
+    rerender(state)
+})
 
 
 

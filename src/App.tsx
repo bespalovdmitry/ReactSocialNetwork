@@ -11,17 +11,13 @@ type AppPropsType = {
     store: StorePropsType
 }
 function App(props: AppPropsType) {
-
     return (
         <Box className="App" sx={{display: 'flex'}}>
-
             <CssBaseline/>
             <Header/>
             <SideBar/>
                 <Pages
-                    profilePage={props.store.getState().profilePage}
-                    messagePage={props.store.getState().messagePage}
-                    dispatch={props.store.dispatch.bind(props.store)}
+                    store={props.store}
                 />
         </Box>
     );

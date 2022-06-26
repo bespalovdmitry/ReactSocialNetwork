@@ -1,22 +1,20 @@
 import {Grid} from '@mui/material';
 import React from 'react';
-import {SendPost} from './SendPost';
-import {MyPost} from './MyPost';
-import {ProfilePageType, RootActionType} from '../../../types';
+import {StorePropsType} from '../../../types';
+import {MyPostContainer} from './MyPostContainer';
+import {SendPostContainer} from './SendPostContainer';
 
 type ChatPropsType = {
-    profilePage: ProfilePageType
-    dispatch: (action: RootActionType) => void
+    store: StorePropsType
 }
 
 export const Chat = (props: ChatPropsType) => {
-
     return (
         <Grid item xs={8}>
-            <SendPost
-                dispatch={props.dispatch}
+            <SendPostContainer
+                store={props.store}
             />
-            {props.profilePage.myPostsData.map(post => <MyPost key={post.id} post={post} postId={post.id} dispatch={props.dispatch}/>)}
+            {props.store.getState().profilePage.myPostsData.map(post => <MyPostContainer key={post.id} post={post} postId={post.id} store={props.store}/>)}
         </Grid>
     );
 };

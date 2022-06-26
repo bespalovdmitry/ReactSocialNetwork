@@ -3,18 +3,16 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import React from 'react';
-import {MyPostType, RootActionType} from '../../../types';
-import {addLikeAC} from '../../../redux/profileReducer';
+import {MyPostType} from '../../../types';
 
 type MyPostPropsType = {
-    dispatch: (action: RootActionType) => void
     post: MyPostType
-    postId: string
+    addLike: () => void
 }
 
 export const MyPost = (props: MyPostPropsType) => {
     const onClickAddLike = () => {
-        props.dispatch(addLikeAC(props.postId))
+        props.addLike()
     }
     return (
         <Paper sx={{mb: 1, p: 1}}>
