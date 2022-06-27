@@ -1,20 +1,18 @@
 import {Grid} from '@mui/material';
 import React from 'react';
-import {StorePropsType} from '../../../types';
+import {MyPostType} from '../../../types';
 import {MyPostContainer} from './MyPostContainer';
 import {SendPostContainer} from './SendPostContainer';
 
 type ChatPropsType = {
-    store: StorePropsType
+    myPostsData: Array<MyPostType>
+    addLike: (postId: string) => void
 }
-
 export const Chat = (props: ChatPropsType) => {
     return (
         <Grid item xs={8}>
-            <SendPostContainer
-                store={props.store}
-            />
-            {props.store.getState().profilePage.myPostsData.map(post => <MyPostContainer key={post.id} post={post} postId={post.id} store={props.store}/>)}
+            <SendPostContainer/>
+            {props.myPostsData.map(post => <MyPostContainer key={post.id} post={post} postId={post.id} addLike={props.addLike}/>)}
         </Grid>
     );
 };

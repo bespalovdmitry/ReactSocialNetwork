@@ -5,15 +5,11 @@ import {Grid} from '@mui/material';
 import {MyInfoCard} from './chatSideBar/MyInfoCard';
 import {SearchField} from './chatSideBar/SearchField';
 import {ChatGroupBtn} from './chatSideBar/ChatGroupBtn';
-import {FriendsListChat} from './chatSideBar/FriendsListChat';
-import {ChatArea} from './chatArea/ChatArea';
-import {StorePropsType} from '../../types';
+import {FriendsListChatContainer} from './chatSideBar/FriendsListChatContainer';
+import {ChatAreaContainer} from './chatArea/ChatAreaContainer';
 
-type MessagePropsType = {
-    store: StorePropsType
-}
 
-export const Message = (props: MessagePropsType) => {
+export const Message = () => {
     return (
         <Box component="main" sx={{flexGrow: 1, p: 3}}>
             <Toolbar/>
@@ -22,12 +18,10 @@ export const Message = (props: MessagePropsType) => {
                     <MyInfoCard/>
                     <SearchField/>
                     <ChatGroupBtn/>
-                    <FriendsListChat store={props.store}/>
+                    <FriendsListChatContainer/>
                 </Grid>
                 <Grid item xs={9}>
-                    <ChatArea
-                        store={props.store}
-                    />
+                    <ChatAreaContainer/>
                 </Grid>
             </Grid>
         </Box>

@@ -1,17 +1,16 @@
 import React from 'react';
-import {MyPostType, StorePropsType} from '../../../types';
-import {addLikeAC} from '../../../redux/profileReducer';
+import {MyPostType} from '../../../types';
 import {MyPost} from './MyPost';
 
 type MyPostPropsType = {
-    store: StorePropsType
+    addLike: (postId: string) => void
     post: MyPostType
     postId: string
 }
 
 export const MyPostContainer = (props: MyPostPropsType) => {
     const addLike = () => {
-        props.store.dispatch(addLikeAC(props.postId))
+        props.addLike(props.postId)
     }
     return (
        <MyPost post={props.post} addLike={addLike}/>

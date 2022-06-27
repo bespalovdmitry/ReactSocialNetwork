@@ -12,7 +12,6 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ro
     switch (action.type) {
         case 'ADD-POST':
             return  {...state, myPostsData: [...state.myPostsData, {id: v1(), postMessage: action.postMessage, like: 0}]}
-            // return state.myPostsData.push({id: v1(), postMessage: action.postMessage, like: 0})
         case 'ADD-LIKE':
             return {...state, myPostsData: state.myPostsData.map(post => post.id === action.postId ? {...post, like: post.like + 1} : post)}
         default: return state

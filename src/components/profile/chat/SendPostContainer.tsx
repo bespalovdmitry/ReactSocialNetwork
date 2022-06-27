@@ -1,16 +1,21 @@
 import React from 'react';
-import {StorePropsType} from '../../../types';
+import {RootType} from '../../../types';
 import {addPostAC} from '../../../redux/profileReducer';
 import {SendPost} from './SendPost';
+import {connect} from 'react-redux';
+import {Dispatch} from 'redux';
 
-type SendPostPropsType = {
-    store: StorePropsType
-}
-export const SendPostContainer = (props: SendPostPropsType) => {
-    const sendPost = (newPost: string) => {
-        props.store.dispatch(addPostAC(newPost))
+const mapStateToProps = (state: RootType) => {
+    return {
+
     }
-    return (
-        <SendPost sendPost={sendPost}/>
-    );
-};
+}
+
+const mapDispatchToProps = (dispatch: Dispatch) => {
+    return {
+        sendPost: (newPost: string) => {
+            dispatch(addPostAC(newPost))
+        }
+    }
+}
+export const SendPostContainer = connect(mapStateToProps, mapDispatchToProps)(SendPost)

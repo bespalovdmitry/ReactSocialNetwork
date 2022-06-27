@@ -9,6 +9,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
 import {NavLink} from 'react-router-dom';
 import {ListItemButton} from '@mui/material';
+import GroupIcon from '@mui/icons-material/Group';
 
 export const SideBar = () => {
     const drawerWidth = 240;
@@ -41,6 +42,13 @@ export const SideBar = () => {
                                 <ListItemText primary="Chat" sx={{color: 'rgba(0, 0, 0, 0.87)'}}/>
                             </ListItemButton>
                         </NavLink>
+
+                    <NavLink to="/users" style={{textDecoration: 'none'}}>
+                        <ListItemButton>
+                            <ListItemIcon><GroupIcon/></ListItemIcon>
+                            <ListItemText primary="Users" sx={{color: 'rgba(0, 0, 0, 0.87)'}}/>
+                        </ListItemButton>
+                    </NavLink>
                 </List>
 
             </Box>

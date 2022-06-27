@@ -1,15 +1,13 @@
 import React from 'react';
-import {StorePropsType} from '../../../types';
-import {addMessageAC} from '../../../redux/messageReducer';
 import {ChatSendMessage} from './ChatSendMessage';
 
 type ChatSendMessageType = {
-    store: StorePropsType
+    addMessage: (myMessage: string) => void
 }
 export const ChatSendMessageContainer = (props: ChatSendMessageType) => {
 
     const addMessage = (myMessage: string) => {
-        props.store.dispatch(addMessageAC(myMessage))
+        props.addMessage(myMessage)
     }
     return (
         <ChatSendMessage addMessage={addMessage} />

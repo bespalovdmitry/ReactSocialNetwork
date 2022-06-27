@@ -1,10 +1,10 @@
 import List from '@mui/material/List';
 import React from 'react';
 import {FriendCardChat} from './FriendCardChat';
-import {StorePropsType} from '../../../types';
+import {FriendType} from '../../../types';
 
 type FriendsListChatPropsType = {
-    store: StorePropsType
+    friendsData: Array<FriendType>
 }
 export const FriendsListChat = (props: FriendsListChatPropsType) => {
     const style = {
@@ -13,7 +13,7 @@ export const FriendsListChat = (props: FriendsListChatPropsType) => {
     };
     return (
         <List sx={style} component="nav" aria-label="mailbox folders">
-            {props.store.getState().messagePage.friendsData.map(friend => (
+            {props.friendsData.map(friend => (
                 <FriendCardChat
                     key={friend.id}
                     id={friend.id}

@@ -1,12 +1,13 @@
 import {combineReducers, legacy_createStore as createStore} from 'redux'
 import {profileReducer} from './profileReducer';
 import {messageReducer} from './messageReducer';
-import {StorePropsType} from '../types';
+import {UsersReducer} from './usersReducer';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
     profilePage: profileReducer,
-    messagePage: messageReducer
+    messagePage: messageReducer,
+    usersPage: UsersReducer
 })
-const store: StorePropsType = createStore(rootReducer)
+const store = createStore(rootReducer)
 export default store
 

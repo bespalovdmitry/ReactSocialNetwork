@@ -4,13 +4,15 @@ import {ChatHeader} from './ChatHeader';
 import {MessageFromFriend} from './MessageFromFriend';
 import React from 'react';
 import {MyMessage} from './MyMessage';
-import {StorePropsType} from '../../../types';
+import {MessageType} from '../../../types';
 import {ChatSendMessageContainer} from './ChatSendMessageContainer';
 
-type ChatAreaPropsType = {
-    store: StorePropsType
+type ChatAreaType = {
+    friendMessageData: Array<MessageType>
+    myMessageData: Array<MessageType>
+    addMessage: (myMessage: string) => void
 }
-export const ChatArea = (props: ChatAreaPropsType) => {
+export const ChatArea = (props: ChatAreaType) => {
     return (
         <Paper sx={{
             height: '100%',
@@ -23,13 +25,13 @@ export const ChatArea = (props: ChatAreaPropsType) => {
                 <Box>
                     <ChatHeader/>
                     <Divider sx={{mb: 2}}/>
-                    {props.store.getState().messagePage.friendMessageData.map((message) => {
+                    {props.friendMessageData.map((message) => {
                         return <MessageFromFriend key={message.id} friendName={message.friendName}
                                                   message={message.message} time={message.time}/>
                     })}
                 </Box>
                 <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
-                    {props.store.getState().messagePage.myMessageData.map((message) => {
+                    {props.myMessageData.map((message) => {
                         return <MyMessage key={message.id} friendName={message.friendName} message={message.message}
                                           time={message.time}/>
                     })}
@@ -37,7 +39,7 @@ export const ChatArea = (props: ChatAreaPropsType) => {
             </Box>
             <Box>
                 <Divider sx={{mb: 2}}/>
-                <ChatSendMessageContainer store={props.store}/>
+                <ChatSendMessageContainer addMessage={props.addMessage}/>
             </Box>
         </Paper>
     );
