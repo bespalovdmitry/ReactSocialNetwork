@@ -1,17 +1,13 @@
 import {Avatar, Button, Card, CardContent, CardMedia, Grid} from '@mui/material';
 import Box from '@mui/material/Box';
 import cover from '../../media/green_iguana.jpeg';
-import myAvatar from '../../media/my_avatar.jpeg';
 import Typography from '@mui/material/Typography';
 import React from 'react';
 
 type FriendCardPropsType = {
+    photos: string
     userId: string
     fullName: string
-    location: {
-        country: string
-        city: string
-    }
     followed: boolean
     status: string
     changeFollowed: (userId: string) => void
@@ -31,7 +27,7 @@ export const FriendCard = (props: FriendCardPropsType) => {
                         image={cover}
                     />
                     <Avatar
-                        src={myAvatar}
+                        src={props.photos}
                         sx={{
                             width: 56,
                             height: 56,
@@ -53,10 +49,10 @@ export const FriendCard = (props: FriendCardPropsType) => {
                         </Grid>
                         <Grid item xs={4}>
                             <Typography gutterBottom variant="h5" component="div">
-                                {props.location.country}
+                                {'props.location.country'}
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                                {props.location.city}
+                                {'props.location.city'}
                             </Typography>
                         </Grid>
                         <Grid item xs={4}>

@@ -1,6 +1,6 @@
 import {addLikeAC, addPostAC} from './redux/profileReducer';
 import {addMessageAC} from './redux/messageReducer';
-import {changeFollowedAC, setUsersAC} from './redux/usersReducer';
+import {changeFollowedAC, changePaginationAC, setPaginationAC, setUsersAC} from './redux/usersReducer';
 
 
 export type StorePropsType = {
@@ -10,7 +10,8 @@ export type StorePropsType = {
     subscribe: (callback: () => void) => void
     dispatch: (action: RootActionType) => void
 }
-export type RootActionType = AddPostACType | AddMessageACType | AddLikeACType | ChangeFollowedACType | SetUsersACType
+export type RootActionType = AddPostACType | AddMessageACType | AddLikeACType | ChangeFollowedACType | SetUsersACType |
+    SetPaginationAC | ChangePaginationAC
 export type RootType = {
     profilePage: ProfilePageType
     messagePage: MessagePageType
@@ -18,14 +19,22 @@ export type RootType = {
 }
 export type UsersPageType = {
     usersData: Array<UserType>
+    totalCount: number,
+    pageSize: number,
+    currentPage: number
 }
 
 export type UserType = {
+    photos: {
+        large: string
+        small: string
+    }
     id: string
     followed: boolean
-    fullName: string
+    name: string
     status: string
-    location: { country: string, city: string }
+    uniqueUrlName: string
+    // location: { country: string, city: string }
 }
 export type MessagePageType = {
     friendsData: Array<FriendType>
@@ -44,3 +53,5 @@ export type AddMessageACType = ReturnType<typeof addMessageAC>
 export type AddLikeACType = ReturnType<typeof addLikeAC>
 export type ChangeFollowedACType = ReturnType<typeof changeFollowedAC>
 export type SetUsersACType = ReturnType<typeof setUsersAC>
+export type SetPaginationAC = ReturnType<typeof setPaginationAC>
+export type ChangePaginationAC = ReturnType<typeof changePaginationAC>

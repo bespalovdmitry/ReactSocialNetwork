@@ -7,25 +7,40 @@ test('followed test', () => {
             {
                 id: '1',
                 followed: true,
-                fullName: 'Dmitry B',
+                name: 'Dmitry B',
                 status: 'Im new user',
-                location: {country: 'Russia', city: 'Moscow'}
+                photos: {
+                    small: '',
+                    large: ''
+                },
+                uniqueUrlName: ''
             },
             {
                 id: '2',
                 followed: false,
-                fullName: 'Jack K',
+                name: 'Jack K',
                 status: 'Hello, see my profile',
-                location: {country: 'USA', city: 'New York'}
+                photos: {
+                    small: '',
+                    large: ''
+                },
+                uniqueUrlName: ''
             },
             {
                 id: '3',
                 followed: true,
-                fullName: 'Sandra B',
+                name: 'Sandra B',
                 status: 'Travels lovely',
-                location: {country: 'Singapore', city: 'Singapore'}
+                photos: {
+                    small: '',
+                    large: ''
+                },
+                uniqueUrlName: ''
             }
-        ]
+        ],
+        totalCount: 0,
+        pageSize: 9,
+        currentPage: 1
     }
 
     let endState = UsersReducer(startState, changeFollowedAC('2'))
@@ -37,27 +52,37 @@ test('followed test', () => {
 
 test('set users', () => {
     let startState: UsersPageType = {
-        usersData: []
+        usersData: [],
+        totalCount: 0,
+        pageSize: 9,
+        currentPage: 1
     }
 
     let endState = UsersReducer(startState, setUsersAC([{
-            id: '6',
-            followed: true,
-            fullName: 'Dmitry B',
-            status: 'Im new user',
-            location: {country: 'Russia', city: 'Moscow'}
+        id: '1',
+        followed: true,
+        name: 'Dmitry B',
+        status: 'Im new user',
+        photos: {
+            small: '',
+            large: ''
+        },
+        uniqueUrlName: ''
         },
             {
-                id: '7',
-                followed: false,
-                fullName: 'jack B',
+                id: '2',
+                followed: true,
+                name: 'Dmitry B',
                 status: 'Im new user',
-                location: {country: 'USA', city: 'New York'}
+                photos: {
+                    small: '',
+                    large: ''
+                },
+                uniqueUrlName: ''
             }
         ]
     ))
 
     expect(endState.usersData.length).toBe(2)
-    expect(endState.usersData[1].location.city).toBe('New York')
-    expect(endState.usersData[0].fullName).toBe('Dmitry B')
+    expect(endState.usersData[0].name).toBe('Dmitry B')
 })

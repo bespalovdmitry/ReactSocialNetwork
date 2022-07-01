@@ -1,7 +1,10 @@
 import {RootActionType, UsersPageType, UserType} from '../types';
 
 const initialState: UsersPageType  = {
-    usersData: []
+    usersData: [],
+    totalCount: 0,
+    pageSize: 9,
+    currentPage: 1
 }
 export const UsersReducer = (state: UsersPageType = initialState, action: RootActionType) => {
     switch (action.type) {
@@ -11,8 +14,17 @@ export const UsersReducer = (state: UsersPageType = initialState, action: RootAc
             }
         case 'SET-USERS':
             return {
+                ...state, usersData: action.payload.users
+            }
+        case 'SET-PAGINATION':
+            return {
                 ...state,
-                usersData: [...state.usersData, ...action.payload.users]
+                totalCount: action.payload.count
+            }
+        case 'CHANGE-PAGINATION':
+            return {
+                ...state,
+                currentPage: action.payload.page
             }
         default: return state
     }
@@ -32,3 +44,18 @@ export const setUsersAC = (users: Array<UserType>) => {
       payload: {users}
   } as const
 }
+
+export const setPaginationAC = (count: number) => {
+    return {
+        type: 'SET-PAGINATION',
+        payload: {count}
+    } as const
+}
+
+export const changePaginationAC = (page: number) => {
+    return {
+            type: 'CHANGE-PAGINATION',
+        payload: {page}
+    } as const
+}
+
