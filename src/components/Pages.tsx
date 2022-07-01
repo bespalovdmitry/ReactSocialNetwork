@@ -3,7 +3,7 @@ import {Navigate, Route, Routes} from 'react-router-dom';
 import Error404 from './error/Error404';
 import {Profile} from './profile/Profile';
 import {Message} from './message/Message';
-import {UsersContainer} from './users/UsersContainer';
+import {Users} from './users/Users';
 
 export const PATH = {
     PROFILE: '/profile',
@@ -18,7 +18,7 @@ function Pages() {
 
             <Route path={PATH.PROFILE} element={<Profile/>}/>
             <Route path={PATH.MESSAGES} element={<Message/>}/>
-            <Route path={PATH.USERS} element={<UsersContainer />}/>
+            <Route path={PATH.USERS} element={<Users />}/>
 
             <Route path={'/*'} element={<Error404/>}/>
 

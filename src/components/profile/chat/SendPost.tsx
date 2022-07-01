@@ -6,18 +6,18 @@ import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternate
 import AddLocationAltOutlinedIcon from '@mui/icons-material/AddLocationAltOutlined';
 import SentimentSatisfiedOutlinedIcon from '@mui/icons-material/SentimentSatisfiedOutlined';
 import React, {ChangeEvent, useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {addPostAC} from '../../../redux/profileReducer';
 
-type SendPostPropsType = {
-    sendPost: (newPost: string) => void
-}
-export const SendPost = (props: SendPostPropsType) => {
+export const SendPost = () => {
+    const dispatch = useDispatch()
     const [newPost, setNewPost] = useState('')
 
     const onChangePost = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setNewPost(e.currentTarget.value)
     }
     const onClickSendPostHandler = () => {
-        props.sendPost(newPost)
+        dispatch(addPostAC(newPost))
         setNewPost('')
     }
     return (

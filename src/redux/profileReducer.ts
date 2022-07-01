@@ -8,7 +8,7 @@ const initialState: ProfilePageType = {
     ],
 }
 
-export const profileReducer = (state: ProfilePageType = initialState, action: RootActionType) => {
+export const profileReducer = (state: ProfilePageType = initialState, action: RootActionType): ProfilePageType => {
     switch (action.type) {
         case 'ADD-POST':
             return  {...state, myPostsData: [...state.myPostsData, {id: v1(), postMessage: action.postMessage, like: 0}]}

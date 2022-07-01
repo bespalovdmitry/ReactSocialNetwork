@@ -1,18 +1,22 @@
 import {Grid} from '@mui/material';
 import React from 'react';
+import {useSelector} from 'react-redux';
+import {StoreType} from '../../../redux/storeRedux';
 import {MyPostType} from '../../../types';
-import {MyPostContainer} from './MyPostContainer';
-import {SendPostContainer} from './SendPostContainer';
+import {SendPost} from './SendPost';
+import {MyPost} from './MyPost';
 
-type ChatPropsType = {
-    myPostsData: Array<MyPostType>
-    addLike: (postId: string) => void
-}
-export const Chat = (props: ChatPropsType) => {
+
+export const Chat = () => {
+    let posts = useSelector<StoreType, Array<MyPostType>>(state => state.profilePage.myPostsData)
     return (
         <Grid item xs={8}>
-            <SendPostContainer/>
-            {props.myPostsData.map(post => <MyPostContainer key={post.id} post={post} postId={post.id} addLike={props.addLike}/>)}
+            <SendPost/>
+            {posts.map(post =>
+                <MyPost
+                key={post.id}
+                post={post}
+            />)}
         </Grid>
     );
 };

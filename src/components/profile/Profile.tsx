@@ -3,7 +3,7 @@ import Toolbar from '@mui/material/Toolbar';
 import React from 'react';
 import {Grid} from '@mui/material';
 import {ProfileCard} from './ProfileCard';
-import {ChatContainer} from './chat/ChatContainer';
+import {Chat} from './chat/Chat';
 
 export const Profile = () => {
     return (
@@ -11,7 +11,7 @@ export const Profile = () => {
             <Toolbar/>
             <Grid container spacing={2} sx={{backgroundColor: 'none'}}>
                 <ProfileCard/>
-                <ChatContainer />
+                <Chat/>
             </Grid>
         </Box>
     );

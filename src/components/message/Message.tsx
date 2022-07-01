@@ -5,8 +5,8 @@ import {Grid} from '@mui/material';
 import {MyInfoCard} from './chatSideBar/MyInfoCard';
 import {SearchField} from './chatSideBar/SearchField';
 import {ChatGroupBtn} from './chatSideBar/ChatGroupBtn';
-import {FriendsListChatContainer} from './chatSideBar/FriendsListChatContainer';
 import {ChatAreaContainer} from './chatArea/ChatAreaContainer';
+import {FriendsListChat} from './chatSideBar/FriendsListChat';
 
 
 export const Message = () => {
@@ -18,7 +18,7 @@ export const Message = () => {
                     <MyInfoCard/>
                     <SearchField/>
                     <ChatGroupBtn/>
-                    <FriendsListChatContainer/>
+                    <FriendsListChat/>
                 </Grid>
                 <Grid item xs={9}>
                     <ChatAreaContainer/>

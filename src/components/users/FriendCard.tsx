@@ -3,18 +3,17 @@ import Box from '@mui/material/Box';
 import cover from '../../media/green_iguana.jpeg';
 import Typography from '@mui/material/Typography';
 import React from 'react';
+import {UserType} from '../../types';
+import {useDispatch} from 'react-redux';
+import {changeFollowedAC} from '../../redux/usersReducer';
 
 type FriendCardPropsType = {
-    photos: string
-    userId: string
-    fullName: string
-    followed: boolean
-    status: string
-    changeFollowed: (userId: string) => void
+    user: UserType
 }
-export const FriendCard = (props: FriendCardPropsType) => {
+export const FriendCard = ({user}: FriendCardPropsType) => {
+    const dispatch = useDispatch()
     const onClickFollow = () => {
-      props.changeFollowed(props.userId)
+        dispatch(changeFollowedAC(user.id))
     }
     return (
         <Grid item xs={4}>
@@ -27,7 +26,7 @@ export const FriendCard = (props: FriendCardPropsType) => {
                         image={cover}
                     />
                     <Avatar
-                        src={props.photos}
+                        src={user.photos.small}
                         sx={{
                             width: 56,
                             height: 56,
@@ -41,27 +40,36 @@ export const FriendCard = (props: FriendCardPropsType) => {
                     <Grid container sx={{textAlign: 'center', alignItems: 'center'}}>
                         <Grid item xs={4}>
                             <Typography gutterBottom variant="h5" component="div">
-                                {props.fullName}
+                                {user.name}
                             </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                {props.status}
+                            <Typography
+                                variant="body2"
+                                color="text.secondary"
+                                sx={{
+                                    display: '-webkit-box',
+                                    overflow: 'hidden',
+                                    WebkitBoxOrient: 'vertical',
+                                    WebkitLineClamp: 1
+                                }}
+                            >
+                                {user.status}
                             </Typography>
                         </Grid>
                         <Grid item xs={4}>
                             <Typography gutterBottom variant="h5" component="div">
-                                {'props.location.country'}
+                                Country
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                                {'props.location.city'}
+                                City
                             </Typography>
                         </Grid>
                         <Grid item xs={4}>
                             <Button
                                 onClick={onClickFollow}
                                 variant={'contained'}
-                                color={props.followed ? 'secondary' : 'primary'}
+                                color={user.followed ? 'secondary' : 'primary'}
                             >
-                                {props.followed ? 'Unfollow' : 'Follow'}
+                                {user.followed ? 'Unfollow' : 'Follow'}
                             </Button>
                         </Grid>
                     </Grid>

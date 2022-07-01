@@ -8,6 +8,7 @@ export const rootReducer = combineReducers({
     messagePage: messageReducer,
     usersPage: UsersReducer
 })
+export type StoreType = ReturnType<typeof rootReducer>
 const store = createStore(rootReducer)
 export default store
 
