@@ -19,15 +19,10 @@ export const Users = () => {
                 dispatch(setUsersAC(response.data.items))
                 dispatch(setPaginationAC(response.data.totalCount))
             })
-    })
+    },[usersPages.currentPage, usersPages.pageSize, dispatch])
 
     const handleChangePagination = (event: React.ChangeEvent<unknown>, value: number) => {
         dispatch(changePaginationAC(value))
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${value}&count=${usersPages.pageSize}`)
-            .then((response) => {
-                dispatch(setUsersAC(response.data.items))
-                dispatch(setPaginationAC(response.data.totalCount))
-            })
     }
 
     return (
