@@ -4,13 +4,18 @@ const initialState: UsersPageType  = {
     usersData: [],
     totalCount: 0,
     pageSize: 9,
-    currentPage: 1
+    currentPage: 1,
+    followingInProgress: true
 }
-export const UsersReducer = (state: UsersPageType = initialState, action: RootActionType) => {
+export const UsersReducer = (state: UsersPageType = initialState, action: RootActionType): UsersPageType => {
     switch (action.type) {
         case 'CHANGE-FOLLOWED':
             return {
-                ...state, usersData: state.usersData.map(el => el.id === action.payload.userId ? {...el, followed: !el.followed} : el)
+                ...state, usersData: state.usersData.map(el => el.id === action.payload.userId ? {...el, followed: true} : el)
+            }
+        case 'CHANGE-UNFOLLOW':
+            return {
+                ...state, usersData: state.usersData.map(el => el.id === action.payload.userId ? {...el, followed: false} : el)
             }
         case 'SET-USERS':
             return {
@@ -26,6 +31,11 @@ export const UsersReducer = (state: UsersPageType = initialState, action: RootAc
                 ...state,
                 currentPage: action.payload.page
             }
+        case 'FOLLOWING-WAIT':
+            return {
+                ...state,
+                // following: action.payload.isDownloading
+            }
         default: return state
     }
 };
@@ -34,6 +44,13 @@ export const UsersReducer = (state: UsersPageType = initialState, action: RootAc
 export const changeFollowedAC = (userId: string) => {
     return {
         type: 'CHANGE-FOLLOWED',
+        payload: {userId}
+    } as const
+}
+
+export const changeUnfollowAC = (userId: string) => {
+    return {
+        type: 'CHANGE-UNFOLLOW',
         payload: {userId}
     } as const
 }
@@ -56,6 +73,13 @@ export const changePaginationAC = (page: number) => {
     return {
             type: 'CHANGE-PAGINATION',
         payload: {page}
+    } as const
+}
+
+export const followingAC = (isDownloading: boolean) => {
+    return {
+            type: 'FOLLOWING-WAIT',
+        payload: {isDownloading}
     } as const
 }
 

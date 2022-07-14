@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Grid} from '@mui/material';
 import {MyInfoCard} from './chatSideBar/MyInfoCard';
 import {SearchField} from './chatSideBar/SearchField';
@@ -10,6 +10,9 @@ import {FriendsListChat} from './chatSideBar/FriendsListChat';
 
 
 export const Message = () => {
+    useEffect(() => {
+        document.title = 'Chat'
+    },[])
     return (
         <Box component="main" sx={{flexGrow: 1, p: 3}}>
             <Toolbar/>

@@ -1,11 +1,18 @@
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Grid} from '@mui/material';
 import {ProfileCard} from './ProfileCard';
 import {Chat} from './chat/Chat';
 
+
 export const Profile = () => {
+
+
+
+    useEffect(() => {
+        document.title = 'Profile'
+    },[])
     return (
         <Box component="main" sx={{flexGrow: 1, p: 3, backgroundColor: '#f6f6f9'}}>
             <Toolbar/>
@@ -16,5 +23,4 @@ export const Profile = () => {
         </Box>
     );
 };
-
 

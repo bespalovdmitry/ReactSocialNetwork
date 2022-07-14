@@ -1,12 +1,12 @@
 import React from 'react'
-import {Navigate, Route, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import Error404 from './error/Error404';
 import {Profile} from './profile/Profile';
 import {Message} from './message/Message';
 import {Users} from './users/Users';
 
 export const PATH = {
-    PROFILE: '/profile',
+    PROFILE: '/profile/*',
     MESSAGES: '/messages',
     USERS: '/users'
 }
@@ -14,9 +14,11 @@ export const PATH = {
 function Pages() {
     return (
         <Routes>
-            <Route path={'/'} element={<Navigate to={PATH.PROFILE}/>}/>
+            {/*<Route path={'/'} element={<Navigate to={'/profile'}/>}/>*/}
 
-            <Route path={PATH.PROFILE} element={<Profile/>}/>
+            <Route path={PATH.PROFILE} element={<Profile/>}>
+                <Route path={":userId"} element={<Profile/>}/>
+            </Route>
             <Route path={PATH.MESSAGES} element={<Message/>}/>
             <Route path={PATH.USERS} element={<Users />}/>
 
