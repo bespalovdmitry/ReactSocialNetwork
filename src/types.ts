@@ -3,7 +3,7 @@ import {addMessageAC} from './redux/messageReducer';
 import {
     changeFollowedAC,
     changePaginationAC,
-    changeUnfollowAC, followingAC,
+    changeUnfollowAC, clearFollowingArrAC, followingAC,
     setPaginationAC,
     setUsersAC
 } from './redux/usersReducer';
@@ -18,7 +18,8 @@ export type StorePropsType = {
     dispatch: (action: RootActionType) => void
 }
 export type RootActionType = AddPostACType | AddMessageACType | AddLikeACType | ChangeFollowedACType | SetUsersACType |
-    SetPaginationAC | ChangePaginationAC | SetUserProfileACType | SetUserDataACType | ChangeUnfollowACType | FollowingACType
+    SetPaginationAC | ChangePaginationAC | SetUserProfileACType | SetUserDataACType | ChangeUnfollowACType | FollowingACType |
+    ClearFollowingArrACType
 export type RootType = {
     profilePage: ProfilePageType
     messagePage: MessagePageType
@@ -36,7 +37,7 @@ export type UsersPageType = {
     totalCount: number,
     pageSize: number,
     currentPage: number,
-    followingInProgress: true
+    followingInProgress: Array<number>
 }
 
 export type ProfileDataType = {
@@ -65,7 +66,7 @@ export type UserType = {
         large: string
         small: string
     }
-    id: string
+    id: number
     followed: boolean
     name: string
     status: string
@@ -95,3 +96,4 @@ export type ChangePaginationAC = ReturnType<typeof changePaginationAC>
 export type SetUserProfileACType = ReturnType<typeof setUserProfileAC>
 export type SetUserDataACType = ReturnType<typeof setUserDataAC>
 export type FollowingACType = ReturnType<typeof followingAC>
+export type ClearFollowingArrACType = ReturnType<typeof clearFollowingArrAC>

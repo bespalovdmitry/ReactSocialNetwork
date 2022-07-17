@@ -14,11 +14,11 @@ export const userAPI = {
 }
 
 export const followAPI = {
-    postFollow (userId: string) {
+    postFollow (userId: number) {
         return instance.post(`follow/${userId}`)
             .then(response => response.data)
     },
-    delFollow (userId: string) {
+    delFollow (userId: number) {
         return instance.delete(`follow/${userId}`)
             .then(response => response.data)
     }
@@ -32,7 +32,7 @@ export const authAPI = {
 }
 
 export const profileAPI = {
-    getProfile(userId: string) {
+    getProfile(userId: number) {
         return instance.get(`profile/${userId}`)
             .then(response => response.data)
     }

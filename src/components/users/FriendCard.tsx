@@ -4,10 +4,11 @@ import cover from '../../media/green_iguana.jpeg';
 import Typography from '@mui/material/Typography';
 import React from 'react';
 import {UserType} from '../../types';
-import {useDispatch} from 'react-redux';
-import {changeFollowedAC, changeUnfollowAC, followingAC} from '../../redux/usersReducer';
+import {useDispatch, useSelector} from 'react-redux';
+import {changeFollowedAC, changeUnfollowAC, clearFollowingArrAC, followingAC} from '../../redux/usersReducer';
 import {NavLink} from 'react-router-dom';
 import {followAPI} from '../../api/api';
+import {StoreType} from '../../redux/storeRedux';
 
 type FriendCardPropsType = {
     user: UserType
@@ -15,9 +16,9 @@ type FriendCardPropsType = {
 
 export const FriendCard = ({user}: FriendCardPropsType) => {
     const dispatch = useDispatch()
-    // const loading = useSelector<StoreType, boolean>(state => state.usersPage.followingInProgress)
+    const loading = useSelector<StoreType, Array<number>>(state => state.usersPage.followingInProgress)
     const onClickFollow = () => {
-        dispatch(followingAC(true))
+        dispatch(followingAC(user.id))
         followAPI.postFollow(user.id)
             .then(data => {
                 if (data.resultCode === 0) {
@@ -25,16 +26,20 @@ export const FriendCard = ({user}: FriendCardPropsType) => {
                 }
             })
             .then(() => {
-                dispatch(followingAC(false))
+                dispatch(clearFollowingArrAC())
             })
     }
 
     const onClickUnfollow = () => {
+        dispatch(followingAC(user.id))
         followAPI.delFollow(user.id)
             .then(data => {
                 if (data.resultCode === 0) {
                     dispatch(changeUnfollowAC(user.id))
                 }
+            })
+            .then(() => {
+                dispatch(clearFollowingArrAC())
             })
     }
     return (
@@ -86,7 +91,6 @@ export const FriendCard = ({user}: FriendCardPropsType) => {
                             <Typography variant="body2" color="text.secondary">
                                 City
                             </Typography>
-                            {user.id === '2'? <span>2</span> : <span>3</span>}
                         </Grid>
                         <Grid item xs={4}>
                             {!user.followed ?
@@ -95,6 +99,7 @@ export const FriendCard = ({user}: FriendCardPropsType) => {
                                     onClick={onClickFollow}
                                     variant={'contained'}
                                     color={'primary'}
+                                    disabled={loading.some(id => id === user.id)}
                                 >
                                     Follow
                                 </Button>
@@ -104,6 +109,7 @@ export const FriendCard = ({user}: FriendCardPropsType) => {
                                     onClick={onClickUnfollow}
                                     variant={'contained'}
                                     color={'secondary'}
+                                    disabled={loading.some(id => id === user.id)}
                                 >
                                     Unfollow
                                 </Button>

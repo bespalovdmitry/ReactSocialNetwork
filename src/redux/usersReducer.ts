@@ -5,7 +5,7 @@ const initialState: UsersPageType  = {
     totalCount: 0,
     pageSize: 9,
     currentPage: 1,
-    followingInProgress: true
+    followingInProgress: []
 }
 export const UsersReducer = (state: UsersPageType = initialState, action: RootActionType): UsersPageType => {
     switch (action.type) {
@@ -33,22 +33,26 @@ export const UsersReducer = (state: UsersPageType = initialState, action: RootAc
             }
         case 'FOLLOWING-WAIT':
             return {
+                ...state, followingInProgress: [action.payload.userId]
+            }
+        case 'CLEAR-FOLLOWING-ARR':
+            return {
                 ...state,
-                // following: action.payload.isDownloading
+                followingInProgress: []
             }
         default: return state
     }
 };
 
 
-export const changeFollowedAC = (userId: string) => {
+export const changeFollowedAC = (userId: number) => {
     return {
         type: 'CHANGE-FOLLOWED',
         payload: {userId}
     } as const
 }
 
-export const changeUnfollowAC = (userId: string) => {
+export const changeUnfollowAC = (userId: number) => {
     return {
         type: 'CHANGE-UNFOLLOW',
         payload: {userId}
@@ -76,10 +80,16 @@ export const changePaginationAC = (page: number) => {
     } as const
 }
 
-export const followingAC = (isDownloading: boolean) => {
+export const followingAC = (userId: number) => {
     return {
             type: 'FOLLOWING-WAIT',
-        payload: {isDownloading}
+        payload: {userId}
     } as const
+}
+
+export const clearFollowingArrAC = () => {
+  return {
+      type: 'CLEAR-FOLLOWING-ARR'
+  } as const
 }
 
