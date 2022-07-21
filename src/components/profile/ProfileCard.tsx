@@ -1,4 +1,4 @@
-import {Avatar, Card, CardContent, CardMedia, Grid} from '@mui/material';
+import {Avatar, Card, CardContent, CardMedia, Grid, Link} from '@mui/material';
 import Box from '@mui/material/Box';
 import cover from '../../media/green_iguana.jpeg';
 import Typography from '@mui/material/Typography';
@@ -53,20 +53,23 @@ export const ProfileCard = () => {
 
                             </Grid>
                             <Grid item xs={6}>
-                                {Object.entries(profileData.contacts).map((el, index) => <Typography
-                                    sx={{
-                                        display: 'flex',
-                                        justifyContent: 'flex-start'
-                                    }}
-                                    key={`${index}${el}`}
-                                    variant={'body2'}>
-                                    {el[0]}: <a href={el[1]}>
+                                {Object.entries(profileData.contacts).map((el, index) =>
                                     <Typography
-                                        key={index}
-                                        variant={'body2'}
-                                        color={'text.secondary'}>{el[1]}</Typography>
-                                </a>
-                                </Typography>)}
+                                        sx={{
+                                            display: 'flex',
+                                            justifyContent: 'flex-start'
+                                        }}
+                                        key={`${index}${el}`}
+                                        variant={'body2'}>
+                                        {el[0]}:
+                                        <Link
+                                            href={el[1]}
+                                            key={index}
+                                            variant={'body2'}
+                                            color={'text.secondary'}
+                                            underline="hover"
+                                        >{el[1]}</Link>
+                                    </Typography>)}
                             </Grid>
                         </Grid>
 

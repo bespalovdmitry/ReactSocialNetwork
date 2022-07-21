@@ -7,12 +7,18 @@ import {SearchField} from './chatSideBar/SearchField';
 import {ChatGroupBtn} from './chatSideBar/ChatGroupBtn';
 import {ChatAreaContainer} from './chatArea/ChatAreaContainer';
 import {FriendsListChat} from './chatSideBar/FriendsListChat';
+import {useSelector} from 'react-redux';
+import {StoreType} from '../../redux/storeRedux';
+import {AuthDataType} from '../../types';
+import {Navigate} from 'react-router-dom';
 
 
 export const Message = () => {
+    const authData = useSelector<StoreType, AuthDataType>(state => state.auth)
     useEffect(() => {
         document.title = 'Chat'
     },[])
+    if (!authData.isAuth) return <Navigate to={'/login'}/>
     return (
         <Box component="main" sx={{flexGrow: 1, p: 3}}>
             <Toolbar/>

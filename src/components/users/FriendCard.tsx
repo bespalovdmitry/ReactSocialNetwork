@@ -4,48 +4,32 @@ import cover from '../../media/green_iguana.jpeg';
 import Typography from '@mui/material/Typography';
 import React from 'react';
 import {UserType} from '../../types';
-import {useDispatch, useSelector} from 'react-redux';
-import {changeFollowedAC, changeUnfollowAC, clearFollowingArrAC, followingAC} from '../../redux/usersReducer';
+import {useSelector} from 'react-redux';
+import {follow, unfollow} from '../../redux/usersReducer';
 import {NavLink} from 'react-router-dom';
-import {followAPI} from '../../api/api';
-import {StoreType} from '../../redux/storeRedux';
+import {StoreType, useAppDispatch} from '../../redux/storeRedux';
 
 type FriendCardPropsType = {
     user: UserType
 }
 
 export const FriendCard = ({user}: FriendCardPropsType) => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const loading = useSelector<StoreType, Array<number>>(state => state.usersPage.followingInProgress)
     const onClickFollow = () => {
-        dispatch(followingAC(user.id))
-        followAPI.postFollow(user.id)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(changeFollowedAC(user.id))
-                }
-            })
-            .then(() => {
-                dispatch(clearFollowingArrAC())
-            })
+        dispatch(follow(user.id))
     }
 
     const onClickUnfollow = () => {
-        dispatch(followingAC(user.id))
-        followAPI.delFollow(user.id)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(changeUnfollowAC(user.id))
-                }
-            })
-            .then(() => {
-                dispatch(clearFollowingArrAC())
-            })
+        dispatch(unfollow(user.id))
+    }
+
+    const onClickUser = () => {
     }
     return (
         <Grid item xs={4}>
             <Card>
-                <NavLink to={'/profile/' + user.id}>
+                <NavLink to={'/profile/' + user.id} onClick={onClickUser}>
                     <Box position={'relative'}>
                         <CardMedia
                             component="img"

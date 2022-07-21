@@ -3,7 +3,7 @@ import {addMessageAC} from './redux/messageReducer';
 import {
     changeFollowedAC,
     changePaginationAC,
-    changeUnfollowAC, clearFollowingArrAC, followingAC,
+    changeUnfollowAC, clearFollowingArrAC, followingAC, setFetchingAC,
     setPaginationAC,
     setUsersAC
 } from './redux/usersReducer';
@@ -19,7 +19,7 @@ export type StorePropsType = {
 }
 export type RootActionType = AddPostACType | AddMessageACType | AddLikeACType | ChangeFollowedACType | SetUsersACType |
     SetPaginationAC | ChangePaginationAC | SetUserProfileACType | SetUserDataACType | ChangeUnfollowACType | FollowingACType |
-    ClearFollowingArrACType
+    ClearFollowingArrACType | SetFetchingACType
 export type RootType = {
     profilePage: ProfilePageType
     messagePage: MessagePageType
@@ -27,9 +27,14 @@ export type RootType = {
 }
 
 export type AuthDataType = {
-    id: string
-    email: string
-    login: string
+    data: {
+        id: number | null
+        email: string
+        login: string
+    },
+    messages: Array<string>
+    fieldsErrors: Array<string>
+    resultCode: number | null
     isAuth: boolean
 }
 export type UsersPageType = {
@@ -38,6 +43,7 @@ export type UsersPageType = {
     pageSize: number,
     currentPage: number,
     followingInProgress: Array<number>
+    isFetching: boolean
 }
 
 export type ProfileDataType = {
@@ -97,3 +103,4 @@ export type SetUserProfileACType = ReturnType<typeof setUserProfileAC>
 export type SetUserDataACType = ReturnType<typeof setUserDataAC>
 export type FollowingACType = ReturnType<typeof followingAC>
 export type ClearFollowingArrACType = ReturnType<typeof clearFollowingArrAC>
+export type SetFetchingACType = ReturnType<typeof setFetchingAC>

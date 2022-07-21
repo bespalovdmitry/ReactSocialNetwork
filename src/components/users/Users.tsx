@@ -1,33 +1,30 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import Toolbar from '@mui/material/Toolbar';
 import {FriendCard} from './FriendCard';
 import Box from '@mui/material/Box';
 import {Grid, Pagination, Stack} from '@mui/material';
-import {UsersPageType} from '../../types';
-import {useDispatch, useSelector} from 'react-redux';
-import {StoreType} from '../../redux/storeRedux';
-import {changePaginationAC, setPaginationAC, setUsersAC} from '../../redux/usersReducer';
+import {AuthDataType, UsersPageType} from '../../types';
+import {useSelector} from 'react-redux';
+import {StoreType, useAppDispatch} from '../../redux/storeRedux';
+import {changePaginationAC, getUsers} from '../../redux/usersReducer';
 import Loader from '../Loader';
-import {userAPI} from '../../api/api';
+import {Navigate} from 'react-router-dom';
 
 export const Users = () => {
-    const [loader, setLoader] = useState(true)
     const usersPages = useSelector<StoreType, UsersPageType>(state => state.usersPage)
-    const dispatch = useDispatch()
+    const authData = useSelector<StoreType, AuthDataType>(state => state.auth)
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
-        document.title = 'User'
-        userAPI.getUsers(usersPages.currentPage, 9)
-            .then((data) => {
-                dispatch(setUsersAC(data.items))
-                dispatch(setPaginationAC(data.totalCount))
-                setLoader(false)
-            })
-    }, [usersPages.currentPage, usersPages.pageSize, dispatch])
+            document.title = 'User'
+            dispatch(getUsers(usersPages.currentPage))
+        }, [dispatch, usersPages.currentPage])
 
     const handleChangePagination = (event: React.ChangeEvent<unknown>, value: number) => {
         dispatch(changePaginationAC(value))
     }
+
+    if (!authData.isAuth) return <Navigate to={'/login'}/>
     return (
         <Box component="main"
              sx={{
@@ -40,14 +37,13 @@ export const Users = () => {
             <Toolbar/>
             <Stack spacing={2}>
                 <Pagination
-                    onClick={() => setLoader(true)}
                     page={usersPages.currentPage}
                     onChange={handleChangePagination}
                     count={Math.ceil(usersPages.totalCount / usersPages.pageSize)}
                     color="primary"
                     sx={{mb: 2}}/>
             </Stack>
-            {loader ? <Grid container spacing={2} sx={{mb: 1, mt: 1}}>
+            {usersPages.isFetching ? <Grid container spacing={2} sx={{mb: 1, mt: 1}}>
                 <Loader/>
             </Grid> : null}
             <Box>
