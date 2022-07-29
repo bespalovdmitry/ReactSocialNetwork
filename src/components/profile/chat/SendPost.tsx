@@ -1,33 +1,18 @@
 import {Button, ButtonGroup, IconButton, Paper, TextField, Tooltip} from '@mui/material';
-import Box from '@mui/material/Box';
 import AttachmentIcon from '@mui/icons-material/Attachment';
 import SlowMotionVideoIcon from '@mui/icons-material/SlowMotionVideo';
 import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
 import AddLocationAltOutlinedIcon from '@mui/icons-material/AddLocationAltOutlined';
 import SentimentSatisfiedOutlinedIcon from '@mui/icons-material/SentimentSatisfiedOutlined';
-import React, {ChangeEvent, useState} from 'react';
+import React from 'react';
 import {useDispatch} from 'react-redux';
 import {addPostAC} from '../../../redux/profileReducer';
+import {useFormik} from "formik";
 
 export const SendPost = () => {
-    const dispatch = useDispatch()
-    const [newPost, setNewPost] = useState('')
-
-    const onChangePost = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-        setNewPost(e.currentTarget.value)
-    }
-    const onClickSendPostHandler = () => {
-        dispatch(addPostAC(newPost))
-        setNewPost('')
-    }
     return (
         <Paper sx={{mb: 1, p: 1}}>
-            <Box display={'flex'} alignItems={'flex-end'}>
-                <TextField value={newPost} onChange={onChangePost} label={'Add post...'} variant={'standard'}
-                           fullWidth/>
-                <Button onClick={onClickSendPostHandler} variant={'contained'}
-                        sx={{ml: 1, alignItems: 'flex-end'}}>Post</Button>
-            </Box>
+                <SendPostForm />
             <ButtonGroup sx={{mt: 1}}>
                 <Tooltip title="File" placement="top"><IconButton sx={{color: '#FD5D5D'}}><AttachmentIcon/></IconButton></Tooltip>
                 <IconButton sx={{color: '#00AFC1'}}><SlowMotionVideoIcon/></IconButton>
@@ -38,3 +23,33 @@ export const SendPost = () => {
         </Paper>
     );
 };
+
+const SendPostForm = () => {
+    const dispatch = useDispatch()
+    const formik = useFormik({
+        initialValues: {postMessage},
+        onSubmit: (values) => {
+            dispatch(addPostAC(String(values.postMessage)))
+        }
+    })
+    return (
+        <form onSubmit={formik.handleSubmit} style={{display: "flex", alignItems: "flex-end"}}>
+            <TextField
+                fullWidth
+                id="postMessage"
+                name="postMessage"
+                value={formik.values.postMessage}
+                onChange={formik.handleChange}
+                variant={'standard'}
+                label={'Add post...'}
+            />
+            <Button
+                variant={'contained'}
+                sx={{ml: 1, alignItems: 'flex-end'}}
+                type="submit"
+            >
+                POST
+            </Button>
+        </form>
+    )
+}
