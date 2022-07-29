@@ -4,15 +4,14 @@ import {ChatHeader} from './ChatHeader';
 import {MessageFromFriend} from './MessageFromFriend';
 import React from 'react';
 import {MyMessage} from './MyMessage';
-import {MessageType} from '../../../types';
-import {ChatSendMessageContainer} from './ChatSendMessageContainer';
+import {MessagePageType} from '../../../types';
+import {ChatSendMessage} from "./ChatSendMessage";
+import {useSelector} from "react-redux";
+import {StoreType} from "../../../redux/storeRedux";
 
-type ChatAreaType = {
-    friendMessageData: Array<MessageType>
-    myMessageData: Array<MessageType>
-    addMessage: (myMessage: string) => void
-}
-export const ChatArea = (props: ChatAreaType) => {
+
+export const ChatArea = () => {
+    const messageData = useSelector<StoreType, MessagePageType>(state => state.messagePage)
     return (
         <Paper sx={{
             height: '100%',
@@ -25,13 +24,13 @@ export const ChatArea = (props: ChatAreaType) => {
                 <Box>
                     <ChatHeader/>
                     <Divider sx={{mb: 2}}/>
-                    {props.friendMessageData.map((message) => {
+                    {messageData.friendMessageData.map((message) => {
                         return <MessageFromFriend key={message.id} friendName={message.friendName}
                                                   message={message.message} time={message.time}/>
                     })}
                 </Box>
                 <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
-                    {props.myMessageData.map((message) => {
+                    {messageData.myMessageData.map((message) => {
                         return <MyMessage key={message.id} friendName={message.friendName} message={message.message}
                                           time={message.time}/>
                     })}
@@ -39,7 +38,7 @@ export const ChatArea = (props: ChatAreaType) => {
             </Box>
             <Box>
                 <Divider sx={{mb: 2}}/>
-                <ChatSendMessageContainer addMessage={props.addMessage}/>
+                <ChatSendMessage/>
             </Box>
         </Paper>
     );
