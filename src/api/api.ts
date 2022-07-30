@@ -37,3 +37,10 @@ export const profileAPI = {
             .then(response => response.data)
     }
 }
+
+export const loginAPI = {
+    postLogin(email: string, password: string) {
+        return instance.post(`auth/login`, {email, password})
+            .then(response => response.data)
+    }
+}

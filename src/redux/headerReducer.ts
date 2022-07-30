@@ -1,6 +1,6 @@
 import {AuthDataType, SetUserDataACType} from '../types';
 import {Dispatch} from 'redux';
-import {authAPI} from '../api/api';
+import {authAPI, loginAPI} from '../api/api';
 
 const initialState = {
     data: {
@@ -42,5 +42,16 @@ export const getAuthProfile = () => {
                 }
             })
     }
+}
 
+export const setLogin = (email: string, password: string) => {
+    debugger
+    return () => {
+        loginAPI.postLogin(email, password)
+            .then((res) => {
+                if (res.resultCode === 0) {
+                    console.log('OK')
+                }
+            })
+    }
 }
